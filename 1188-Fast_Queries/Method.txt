@@ -1,0 +1,1 @@
+Sort the queries with respect to j. prev[] contains the previous value of an element, initially -1. Lets assume idx iterate through the given array. For each sorted query Q[i], iterate idx till idx<=Q[i].j. Each time update the prev with prev[arr[idx]]=idx after updating the tree with -1 from previous arr[idx] position. Rest says the code.
