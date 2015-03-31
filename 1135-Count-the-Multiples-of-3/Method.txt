@@ -1,0 +1,6 @@
+Category: Segment tree with lazy propagation.
+Each segment contain count[0],count[1] and count[2]. These are the frequency of data after modularizing by 3. Notice if added 1, count value shift to right by one step. Thus shifted like this:
+tmp=count[2]
+count[2]=count[1]
+count[1]=count[0]
+count[0]=tmp
