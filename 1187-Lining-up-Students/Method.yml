@@ -1,3 +1,8 @@
+Approach #1: nlon(n)
+From input array i:(n...1) one can delete i-arr[i]th position in the segment tree. Thus have
+the result.
+
+Approach #2: O(n)
 Initially ans=1 as first input is obviously 0. Here ans is the leftmost student's highest.
 
 Let the value of input number i is A. If (i-A) is less than or equal to ans then if effects
