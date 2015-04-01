@@ -1,2 +1,3 @@
 Initially ans=1 as first input is obviously 0. Here ans is the leftmost student's highest.
+
 Let the value of input number i is A. If (i-A) is less than or equal to ans then if effects the first student. So the ans increments to one.
