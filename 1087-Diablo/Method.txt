@@ -1,1 +1,5 @@
-Segment tree problem. The value of every segment indicates how many indexes exist in that segment. For example if (1-8) segment has the value 3 that means three indexes exist in the segment. If a index is deleted all the segment that contain the index decreases to 1. Similarly if a new index is created all the segment that contain that index increases to 1.
+Segment tree problem. The value of every segment indicates how many indexes exist in
+that segment. For example if (1-8) segment has the value 3 that means three indexes 
+exist in the segment. If a index is deleted all the segment that contain the index 
+decreases to 1. Similarly if a new index is created all the segment that contain that
+index increases to 1.
