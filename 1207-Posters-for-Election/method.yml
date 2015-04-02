@@ -1,5 +1,5 @@
 Summary:
-Given a series of segment (l:r), the length of posters in order. Determine how many
+Given a series of segments (l to r), the length of posters in order. Determine how many
 posters are visible.
 
 Mathod:
