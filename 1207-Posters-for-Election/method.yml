@@ -1,0 +1,6 @@
+Summary:
+Given a series of segment (l:r), the length of posters in order. Determine how many
+posters are visible.
+
+Mathod:
+Segment tree with lazy propagation.
