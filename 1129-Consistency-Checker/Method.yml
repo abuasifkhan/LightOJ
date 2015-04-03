@@ -1,0 +1,5 @@
+Problem: Given a set of strings. Check if no string is the prefix of another.
+
+Category: Trie tree
+
+Solution: In the trie check if a path of a string consists one or more endpoints.
