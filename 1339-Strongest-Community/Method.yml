@@ -1,0 +1,8 @@
+Problem: Given an array of integers where one or more same valued integers as community
+are adjacent. Query will be a segment (l:r), find out the maximum frequency of the community
+between the segment.
+
+Category: Segment tree, Interval tree
+
+Solution: For every node in the segment tree store left community, frequency of left community, 
+right community, frequency of the right community and maximum frequency.
