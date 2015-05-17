@@ -1,0 +1,3 @@
+Simple scan line problem with segment tree variation. Sort the edges wrt X axis and update the
+Y axis on segment tree. Color it 1 when it is a starting edge of a rectangle, color it -1 when 
+it is a closing edge of the rectangle. Save the distance in a segment tree.
