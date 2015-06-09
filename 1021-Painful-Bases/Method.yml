@@ -1,0 +1,2 @@
+As the number will contain distinct digit think of a DP with states [mask][mod].
+mask is for checking which digit is taken.
