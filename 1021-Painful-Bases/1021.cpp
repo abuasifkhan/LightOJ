@@ -31,7 +31,7 @@ using namespace std;
 #define write freopen("D:/b.txt","w", stdout);
 #define MAX (1+(1<<5))
 #define inf 0x7fffffff
-#define ll unsigned long long
+#define ll long long
 #define mod 1000000007
 #define gc getchar
 #define ls(n) (n<<1)
@@ -56,37 +56,18 @@ int Y[]= {-1, 0, +1, 1, 1, 0, -1, -1};
 
 string num;
 int base, k;
+ll dp[(1<<17)][22];
+int isThere;
 
-int retdig(int i){
-    int a;
-    if(num[i]=='A')a=10;
-    if(num[i]=='B')a=11;
-    if(num[i]=='C')a=12;
-    if(num[i]=='D')a=13;
-    if(num[i]=='E')a=14;
-    if(num[i]=='F')a=15;
-    if(num[i]>='0' and num[i]<='9')a=num[i]-'0';
-    return a;
-}
-ll dp[(1<<16)+10][22];
-int save[22];
-
-ll rec(ll mask, int K){
-    bool flag=1;
+ll rec(ll mask, int md){
+    int cnt=0;
+    if(isThere==mask)return !md;
+    ll &ret=dp[mask][md];
+    if(ret!=-1)return ret;
+    ret=0;
     for(int i=0;i<base;i++){
-        if(save[i] and !Check(mask,i)){
-            flag=false;break;
-        }
-    }
-    if(flag and K==0)return 1;
-    if(flag and K!=0)return 0;
-
-    if(dp[mask][K]!=-1)return dp[mask][K];
-    ll &ret = dp[mask][K];ret=0;
-
-    for(int i=0;i<base;i++){
-        if(save[i] and !Check(mask,i)){
-            ret += rec(Set(mask,i), (K*base+i)%k );
+        if(Check(isThere,i) and !Check(mask,i)){
+            ret+=rec(Set(mask,i), (md*base+i)%k );
         }
     }
     return ret;
@@ -100,11 +81,18 @@ int main() {
     read(test);
     FOR(C, 1, test) {
         out(C);
-        read(base);read(k);cin>>num;
-        CLEAR(save,0);
-        for(int i=0;i<num.size();i++)save[retdig(i)]++;
+        read(base);read(k);
+        cin>>num;
         CLEAR(dp,-1);
-        cout<<rec(0ll,0)<<endl;
+
+        isThere=0;
+        for(int i=0;i<num.size();i++){
+            int a=num[i]-'0';
+            if(num[i]>='A')a=10+(num[i]-'A');
+            isThere|=(1<<a);
+        }
+        ll ans=rec(0,0);
+        printf("%lld\n",ans);
     }
     return 0;
 }
