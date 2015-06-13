@@ -1,0 +1,2 @@
+Consider dp[int index][bool tight][ bool last][int count]. Here "tight" is used to keep the
+value under N.
