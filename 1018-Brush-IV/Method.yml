@@ -1,0 +1,3 @@
+Precalculate for every pair of points how many points lies in the line connecting those pairs.
+
+Use bitmask and recursively find the minimum answer.
