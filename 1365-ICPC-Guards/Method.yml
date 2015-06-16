@@ -1,0 +1,38 @@
+Read this article: http://sundorproblem.blogspot.com/2011/11/guards-problem-e-dhaka-icpc-by-jan.html
+Category: Combinatorics, DP, Stirling Number Second Kind
+
+This problem can be solved by dynamic programming. There are two approaches as far as i know and i am going to discuss the way i have solved it. You can get the judge solution analysis here.
+
+The approach i am going to discuss is another way of looking at the problem. Enough talk i think we should move on.
+
+We are going to assume each column as the nodes of the graph. V is the set of the nodes of the graph, V = {v1,v2,v3,...,vn} where vi = represent i-th column. E = {(vi, vj) : vi is not equals to vj } is the set of edges of the graph and L(vi, vj) = label of the edge (vi,vj) (the label of an edge will be row). The graph is directed . R = {r1,r2,...,rn} is the set of the rows where ri = i-th row.
+
+Oh god so boring lets start the fun part.
+Suppose you have placed two guards at (r1,c1) and (r1,c2). Then there will be an edge (c1,c2) and then you have placed another two at (r3,c2) and another one at (r3,c1). So here we will get another edge (c2,c1). So we have formed a cycle of length 2.
+The cycle formed: c1->c2->c1.
+L(c1,c2) = r1, as c1 and c2 are placed at row r1.
+L(c2,c1) = r3, as c2 and c1 are place at row r3
+L(ci,cj) = the label of edge (ci,cj) is the row ri if we place guards at (ri,ci) and (ri,cj).
+
+Now lets find answer for the simplest case.
+lets say n = 3 and k = 1.
+
+p! = p*(p-1)*...*1
+
+so we have to form a cycle.
+there are (3-1)! = 2 different cycles we can form of length three.
+cycle 1: c1->c2->c3->c1
+cycle 2: c1->c3->c2->c1.
+
+Now take cycle 1 and assign labels to each of the edges. There are 3!/2 = 3 ways to assign them.
+So for each cycle there are 3 ways to assign labels. So for both we have 6 ways and this is the answer for n = 3 and k = 1. That is there 6 possible ways we can place the guards maintaining conditions from the problem.
+
+So the problem now modeled into a version of stirling number of first kind. Stirling number of first kind allows cycle of length 1 which we cannot allow.
+
+we gonna define S(n,k) as the number permutations of n elements with k disjoint cycles where each cycle length is greater than or equals to 2.
+
+S(n,k) = S(n-1,k) *(n-1) + S(n-2,k-1) *(n-1) [ Find out how ]
+
+Result = (S(n,k) * n!)/ 2^k.
+
+as we have k cycles and we have n edges there n! ways to level the edges and to remove over counting we have divided by 2^k.
