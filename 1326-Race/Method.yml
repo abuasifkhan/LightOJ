@@ -1,0 +1,9 @@
+First observation: For a given number n, the n-th horse can be placed in 1st, 2nd, 3rd .... n-th
+partition if exists. So the summation of Stirling number of second kind holds the main first
+observation property.
+So, {n,1}+{n,2}+...{n,n}.
+Here {x,y} means how many ways x objects be divided into y non-zero partitions.
+
+But there is a catch! Here order matters. h1 | h2 | h3 is not same as h2 | h3 | h1.
+
+So the formula we can derive is: 1! *{n,1} + 2! *{n,2} + .... + n! * {n,n}.
