@@ -1,0 +1,2 @@
+Dynamic programming.
+DP[x][y], x here is node number or mosquito. y indicates whether x node is killed or not.
