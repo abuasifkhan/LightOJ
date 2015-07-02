@@ -1,0 +1,2 @@
+I was getting WA using minimum cost maximum flow. So I used minimum cost matching and got AC.
+Try to use Left nodes as gifts, Right nodes as boxes and take cost as negative form.
