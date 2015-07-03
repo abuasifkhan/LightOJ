@@ -1,0 +1,12 @@
+Construct a bipartite graph with n + m vertex, v1, v2, ..., vm representing each row, 
+and u1, u2, ..., un representing the columns. Add an additional source s, and a sink t. 
+Add edges (s, vi) with capacity equals to the numbers of ones in the row i, and add 
+edges (ui, t) with capacity equals to the numbers of ones in the column i. Connect 
+every vi with every uj with capacity 1 an all edges. If all edges form source and all 
+edges to sink are saturated then exist a solution. If an edge (vi, uj) has flow 1 then 
+put a 1 in (i, j). For finding the min lexicographic solution traverse the matrix by rows,
+if there is a 1 in position (i, j) let's try to put a 0 instead, to do this eliminate the
+edge (vi, uj) and try to find again a max flow, if there is one that meets the requirements
+puts the cell to 0, if not leave it in 1. To do the things faster when we remove an edge is
+not necessary calculate the max flow from the beginning, you can run a dfs for find an 
+augmenting path from source to sink, if there exists then we have a max flow again.
