@@ -1,0 +1,6 @@
+Sort and take the unique value of the given array.
+Then find maximum bipertite match of two element.
+An element has an edge with another element if it divides that element.
+After finding maximum bipertite match. Now about printing in lexicographical order.
+Start from the lowest value. You will only be able to print it if total_number_of_printed_element+
+maximum_bipertite_match_excluding_its_multiples==maximum bipertite match.
