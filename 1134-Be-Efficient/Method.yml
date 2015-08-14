@@ -1,0 +1,22 @@
+lets check the 2nd test case:
+the array is : 1 2 3 4 5 6
+we have to find consecutive subsequences that are divisible by 3.
+let start summing up the array modulo 3.
+the array becomes :
+array index: 0 1 2 3 4 5
+main Array : 1 2 3 4 5 6
+cumulative sum modulo 3 : 1 0 0 1 0 0
+now think, for any 2 element which have same reminder we can get a consecutive subsequence divisible by 3.
+for example :
+index 1 and index 4 both have cumulative reminder 0.
+so we can construct a consecutive subsequence from index 2 to 4 which is divisible by 3 (why?? simple math). in this case (3+4+5) = 12.
+for every index we have to know how many same reminder we have encountered so far. We can do it by keeping an reminder array.
+If we simulate the process for the array we get :
+for index 0 : 0 sub sequence.
+for index 1 : 0
+for index 2 : 1
+for index 3: 1
+for index 4: 2
+for index 5: 3
+total 7.
+observe.... sequences which are started from index 0....are not considered so we need to add the 4 zeros so the answer is 7 + 4 = 11.
