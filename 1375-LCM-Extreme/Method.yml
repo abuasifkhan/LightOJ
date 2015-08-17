@@ -1,0 +1,14 @@
+Category: number theory
+
+Solution:
+
+First try to solve this problem.
+http://www.spoj.com/problems/LCMSUM/
+
+Here's my code with solving method for this SPOJ problem.
+https://github.com/asifcse10/SPOJ/tree/master/LCMSUM-LCM-Sum
+
+Help:
+http://math.stackexchange.com/questions/761670/how-to-find-this-lcm-sum-function-textlcm1-n-textlcm2-n-cdots-t
+http://oeis.org/A051193
+http://apps.topcoder.com/forums/?module=Thread&threadID=729936&start=0&mc=2
