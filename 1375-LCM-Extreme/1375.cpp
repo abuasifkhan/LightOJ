@@ -55,8 +55,8 @@ int Y[]= {-1, 0, +1, 1, 1, 0, -1, -1};  //y 8 direction
 // int X[]= {-1, 0, 1, 0};   //x 4 direction
 // int Y[]= { 0, 1, 0, -1};  //y 4 direction
 
-int phi[4*mx];
-ll s[4*mx];
+int phi[3*mx];
+ll s[3*mx];
 void eulerPhi(int sz){
     for(int i=1;i<=sz;i+=2) phi[i]=i;
     for(int i=2;i<=sz;i+=2) phi[i]=i/2;
@@ -71,16 +71,15 @@ void eulerPhi(int sz){
 
 void preproc(int sz=3000010){
     eulerPhi(sz);
-    for(int i=1;i<=sz;i++)
-        s[i]=1;
-
+    
+    s[1]=1;
     for(int i=2;i<=sz;i++){
         for(int j=i;j<=sz;j+=i){
             s[j] += (ll)phi[i]*(ll)i;
         }
     }
     for(int i=1;i<=sz;i++){
-        s[i] = (s[i]-1)/2 * i;
+        s[i] = (s[i])/2 * i;
     }
     for(int i=1;i<=sz;i++)
         s[i]+=s[i-1];
@@ -91,7 +90,7 @@ int main() {
     open
     double st=clock(),en;
     #endif // LOCAL
-    preproc(4000100);
+    preproc();
     int test;
     read(test);
     FOR(C, 1, test) {
