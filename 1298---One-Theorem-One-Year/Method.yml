@@ -1,0 +1,11 @@
+We know, phi(p1^a1 * p2^a2...pn^an) = phi(p1^a1)* phi(p2^a2)* ... * phi(pn ^ an)
+and, phi(p^a) = (p^a - p^(a-1)).
+
+Let i=prime from beginning
+and k = total factors.
+so the recurrence relation can be formed,
+
+DP[i][k] = dp[i-1][i-1]*(Pi^(k-i+1)-Pi^(k-i) + dp[i-1][i]*(Pi^(k-i)-Pi^(k-i-1))+...
+            dp[i-1][k-1]*(Pi^1-Pi^0)
+
+Help: http://www.whitman.edu/mathematics/higher_math_online/section03.08.html
