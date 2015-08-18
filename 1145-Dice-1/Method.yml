@@ -1,0 +1,9 @@
+Calculation: dp[i][j]=dp[i-1][j-1]+dp[i-1][j-2]+....+dp[i-1][j-k]
+        and, dp[i][j-1]=dp[i-1][j-2]+dp[i-1][j-3]+....+dp[i-1][j-k-1]
+So we can get by subtracting:
+             dp[i][j]-dp[i][j-1]=dp[i-1][j-1] - dp[i-1][j-k-1]
+           =>dp[i][j] = dp[i][j-1]+dp[i-1][j-1] - dp[i-1][j-k-1]
+
+base case: dp[0][0]=1;
+
+Use space optimization dp.
