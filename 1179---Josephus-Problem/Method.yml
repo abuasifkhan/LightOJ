@@ -1,0 +1,8 @@
+Let, f(n,k) be the position of the survivor.
+He cannot survive if we put him a*k positions (a>=0).
+We have to shift the survivors position to
+next_position+k. So the next position will be
+f(n,k) = f(n-1,k)+k.
+
+As the circle size is decreasing we have to modularize
+the survivors position, so f(n,k)=(f(n-1,k)+k)%n
