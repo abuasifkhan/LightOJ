@@ -1,0 +1,287 @@
+/** ========================================**
+ ** Bismillahi-Rahamanirahim.               **
+ ** @Author: A Asif Khan Chowdhury          **
+ ** ========================================**/
+
+#include <cstdio>
+#include <iostream>
+#include <vector>
+#include <cstring>
+#include <string>
+#include <sstream>
+#include <queue>
+#include <deque>
+#include <strings.h>
+#include <cmath>
+#include <cstdio>
+#include <set>
+#include <list>
+#include <algorithm>
+#include <map>
+#include <bitset>
+#include <numeric>
+#include <string>
+
+using namespace std;
+
+#define Set(N, j) (N|(1ll<<j))
+#define reset(N, j) (N&~(1ll<<j))
+#define Check(N, j) (bool)(N&(1ll<<j))
+#define toggle(N, j) (N^(1ll<<j))
+#define turnOff(N, j) (N & ~(1ll<<j))
+
+#define CLEAR(A, x) ( memset(A,x,sizeof(A)) )
+#define pii pair <int, int>
+#define pb push_back
+#define open freopen("D:/a.txt", "r", stdin);
+#define write freopen("D:/b.txt","w", stdout);
+#define inf 501
+#define ll long long
+#define ull unsigned ll
+#define mod 1000000007
+#define gc getchar
+#define ls(n) (n<<1)
+#define rs(n) ls(n)|1
+#define MID(a,b) ((a+b)>>1)
+#define fs first
+#define sc second
+#define sl(n) scanf("%lld", &n)
+#define sf(n) scanf("%lf", &n)
+
+//#define mx 1500
+
+template<class T>inline bool read(T &x) {
+    int c=getchar();
+    int sgn=1;
+    while((~c&&c<'0')||c>'9') {
+        if(c=='-')sgn=-1;
+        c=getchar();
+    }
+    for(x=0; ~c&&'0'<=c&&c<='9'; c=getchar())x=x*10+c-'0';
+    x*=sgn;
+    return ~c;
+}
+//int X[]= {-1, -1, -1, 0, 1, 1, 1, 0};   //x 8 direction
+//int Y[]= {-1, 0, +1, 1, 1, 0, -1, -1};  //y 8 direction
+int X[]= {-1, 0, 1, 0};   //x 4 direction
+int Y[]= { 0, 1, 0, -1};  //y 4 direction
+
+string intToString(ll num){
+    stringstream ss;
+    ss<<num;
+    string ret;
+    ss>>ret;
+    return ret;
+}
+
+ll dp[20][20][2][2][2];
+int vis[20][20][2][2][2];
+int solveCounter=0;
+
+int charVal(char c){
+    return c-'0';
+}
+
+ll rec(string num, int l, int r, bool isTight, bool hasLeadingZero, bool reduce){
+    ll &ret = dp[l][r][isTight][hasLeadingZero][reduce];
+    if(vis[l][r][isTight][hasLeadingZero][reduce]==solveCounter)return ret;
+    vis[l][r][isTight][hasLeadingZero][reduce]=solveCounter;
+    
+    ret = 0ll;
+//    cout<<num<<" "<<l<<" "<<r<<" "<<isTight<<" "<<hasLeadingZero<<" "<<reduce<<endl;
+    if(l==r){
+        if(isTight){
+            if(reduce and num[l]=='0')
+                return ret = 0;
+            return ret+=charVal(num[l])+1-reduce;
+        }
+        else if(reduce){
+            return ret+=charVal(num[l]);
+        }
+        return ret+=10ll;
+    }
+    if(l+1==r){
+        if(hasLeadingZero and isTight){
+            ret+= (charVal(num[l])-1 +(num[l]<=num[r])) + rec(num, l+1, r, false, true, false);
+        }
+        else if(isTight){
+            ret+= charVal(num[l])+(num[l]<=num[r]);
+            if(num[l]==num[r]){
+                if(reduce and num[l]=='0')
+                    return ret=0;
+                ret -= reduce;
+            }
+        }
+        else if(hasLeadingZero){
+            ret+= 9ll + rec(num, l+1, r, false, true, false);
+        }
+        else if(reduce){
+            ret+= charVal(num[l]) + (num[l]<num[r]);
+        }
+        else ret += 10ll;
+        
+        return ret;
+    }
+    if(isTight && hasLeadingZero){
+        ret += rec(num, l+1, r, false, true, false);
+//        cout<<ret<<endl;
+        if(num[l]<=num[r]){
+            ret += (charVal(num[l])-1) * rec(num,l+1, r-1, false, false, false);
+            ret += rec(num, l+1, r-1, true, false, false);
+        }
+        else{
+            ret += max(0,(charVal(num[l])-1)) * rec(num, l+1, r-1, false, false, false);
+            ret += rec(num, l+1, r-1, false, false, true);
+        }
+    }
+    else if(isTight){
+        if(num[l]<=num[r]){
+            ret += charVal(num[l]) * rec(num,l+1, r-1, false, false, false);
+            ret += rec(num, l+1, r-1, true, false, (reduce && num[l]==num[r]));
+        }
+        else{
+            ret += charVal(num[l]) * rec(num, l+1, r-1, false, false, false);
+            ret += rec(num, l+1, r-1, false, false, true);
+        }
+    }
+    else if(hasLeadingZero){
+        ret += 9ll * rec(num, l+1, r-1, false, false, false) + rec(num, l+1, r, false, true, false);
+    }
+    else if(reduce){
+//        ret += (charVal(num[l]) + (num[l]<num[r]) ) * rec(num, l+1, r-1, false, false, false);
+        if(num[l]<=num[r]){
+            ret += charVal(num[l]) * rec(num, l+1, r-1, false, false, false);
+            ret += rec(num, l+1, r-1, true, false, (num[l]==num[r]));
+        }
+        else{
+            ret += charVal(num[l]) * rec(num, l+1, r-1, false, false, false);
+            ret += rec(num, l+1, r-1, false, false, true);
+        }
+        
+//        cout<<ret<<endl;
+    }
+    else{
+        ret += 10ll * rec(num, l+1, r-1, false, false, false);
+    }
+    return ret;
+}
+
+ll solve(ll n){
+    if(n==-1){
+        return 0;
+    }
+    solveCounter++;
+    string num = intToString(n);
+//    CLEAR(dp, -1);
+    
+    return rec(num, 0, (int)num.size()-1, true, true, false);
+}
+
+bool isPalindrom(ll n){
+    string num = intToString(n);
+    
+    for(int i=0, j=(int)num.size()-1; i<j;i++, j--){
+//        cout<<"here"<<endl;
+        if(num[i]!=num[j])return false;
+    }
+    return true;
+}
+
+void testing(){
+    ll start = 1999ll;
+    for(ll i=1000000ll;i<=10000000ll;i++){
+        if(isPalindrom(i)){
+            start++;
+        }
+        if(start!=solve(i)){
+            cout<<"not match "<<i<<" "<<start<<" "<<solve(i)<<endl;
+            break;
+        }
+    }
+    cout<<"perfect"<<endl;
+}
+int main() {
+    /**
+     * Write a method to verify your code (Naive)
+     * Learn-Divide-Convert
+     **/
+#ifdef DEBUG
+    freopen("/Users/abuasifkhan/Desktop/ProblemSolving/ProblemSolving/input.in","r",stdin);
+    //    freopen("C:/Users/abu.chowdhury/Desktop/programming/output.out","w",stdout);
+#endif
+    
+    int Test;
+    read(Test);
+    for(int cases=1;cases<=Test;cases++){
+        ll l, r;
+        read(l);read(r);
+        if(l>r)swap(l,r);
+        
+        ll answer = solve(r)-solve(l-1);
+        printf("Case %d: %lld\n", cases, answer);
+
+    }
+    
+    return 0;
+}
+
+
+/**
+ 22
+ 
+ 1 10
+ 100 1
+ 1 1000
+ 1 10000
+ 
+ 102 333
+ 999 1001
+ 1000 3210
+ 12321 12321
+ 
+ 9645 9703
+ 931 905
+ 8002 1398
+ 24152019045590870 350692834056785
+ 21942154908112586 10788988012796340
+ 6544883545356373 93161826011394755
+ 
+ 7485 2237
+ 5464 6036
+ 6022 6398
+ 3690 3669
+ 
+ 3392 4746
+ 3581153335659402 1815
+ 30301842089616726 80661077747381888
+ 47469354875038170 15805475909304717
+ 
+ 
+ Case 1: 9
+ Case 2: 18
+ Case 3: 108
+ Case 4: 198
+ Case 5: 23
+ Case 6: 2
+ Case 7: 22
+ Case 8: 1
+ Case 9: 1
+ Case 10: 3
+ Case 11: 66
+ Case 12: 296450907
+ Case 13: 111531669
+ Case 14: 866169425
+ Case 15: 52
+ Case 16: 6
+ Case 17: 3
+ Case 18: 0
+ Case 19: 13
+ Case 20: 135811416
+ Case 21: 503592356
+ Case 22: 316638790
+ **/
+
+
+
+
+
